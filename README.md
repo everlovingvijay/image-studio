@@ -24,16 +24,16 @@
 | 3 | **✂️ Crop IMAGE** | Edit | Canvas 2D | Visual interactive crop box with draggable handles and presets (1:1, 4:3, 16:9, 9:16, Freeform). |
 | 4 | **🔄 Convert to JPG** | Convert | Canvas Export | Batch turn PNG, GIF, SVG, WEBP, and other formats to JPG with custom background fill color. |
 | 5 | **🎞️ Convert from JPG** | Convert | Canvas + Frame Loop | Turn JPGs into PNG, WebP, or combine multiple JPGs into an **Animated GIF** with frame delay controls! |
-| 6 | **🎨 Photo editor** | Edit | Canvas Filters | Adjust brightness, contrast, saturation, and sepia; apply presets (Vintage, Noir, Vibrant), text, and stickers. |
+| 6 | **🎨 Photo editor** | Edit | Canvas Interactive | Adjust filters; drag & reposition movable text, stickers, and custom image/icon overlays with scaling & rotation. |
 | 7 | **✨ Upscale Image** *(New!)* | Optimize | Bicubic + Sharpen | Enlarge images 2X or 4X with an unsharp masking convolution filter to preserve crisp edge definition. |
 | 8 | **🪄 Remove background** *(New!)* | Edit | Chroma Knockout | Smart magic wand / color keying background knockout with tolerance, edge feathering, and eyedropper. |
 | 9 | **💧 Watermark IMAGE** | Security | Canvas Overlay | Stamp text or logo watermarks in bulk with a 9-point anchor grid, rotation, opacity, and tile mode. |
-| 10 | **🎭 Meme generator** | Create | Typography Engine | Top and bottom text meme generator with classic Impact outline styling and custom image upload. |
+| 10 | **🎭 Meme generator** | Create | Typography + Overlays | Create memes with freely movable top/bottom text, additional captions, scaling controls, and custom sticker uploads. |
 | 11 | **🔃 Rotate IMAGE** | Edit | Canvas Transform | Rotate 90° CW/CCW, 180°, flip horizontally/vertically, with selective landscape/portrait filters. |
 | 12 | **🌐 HTML to IMAGE** | Create | SVG ForeignObject | Render styled HTML/CSS snippets, quote cards, and badges into retina-quality PNG, JPG, or SVG images. |
 | 13 | **🕶️ Blur face & Privacy** *(New!)* | Security | Canvas Region Filter | Interactive drag-to-draw censor boxes over faces, license plates, and sensitive documents (Pixelate or Blur). |
 | 14 | **🖌️ Blur IMAGE** *(New!)* | Edit / Security | Canvas Mask Brush | Blur whole images or paint custom blur with an interactive brush, intensity presets, and background defocus. |
-| 15 | **🎨 Color Palette** | Create | Pixel Quantization | Extract dominant color palettes and harmonies with one-click HEX/RGB copy and palette card export. |
+| 15 | **🎨 Color Palette & Eyedropper** | Create | Eyedropper + K-Means | Interactive eyedropper loupe to pick exact pixel colors directly on images, with one-click HEX copy & dominant palettes. |
 | 16 | **🛡️ Strip Metadata (EXIF)** | Security | Clean Canvas Buffer | Erase GPS coordinates, camera serials, timestamps, and device metadata before sharing photos online. |
 
 ---
