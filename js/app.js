@@ -130,16 +130,30 @@ const App = {
 
   initRouting() {
     window.addEventListener('hashchange', () => this.handleRoute());
+    
+    // Explicit click delegation for hash links
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          if (window.location.hash === href) {
+            this.handleRoute();
+          }
+        }
+      }
+    });
+
     this.handleRoute();
   },
 
   handleRoute() {
-    const hash = window.location.hash || '#/';
-    if (hash === '#/' || hash === '#' || hash === '') {
+    const rawHash = window.location.hash || '#/';
+    const route = rawHash.replace(/^#\/?/, '').trim();
+    if (!route || route === '') {
       this.showCatalog();
     } else {
-      const toolId = hash.replace('#/', '');
-      const tool = TOOLS.find(t => t.id === toolId);
+      const tool = TOOLS.find(t => t.id === route);
       if (tool) {
         this.showTool(tool);
       } else {
@@ -157,11 +171,22 @@ const App = {
   },
 
   showTool(tool) {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    this.catalogView.style.display = 'none';
-    this.workspaceView.classList.add('active');
-    tool.render(this.workspaceView);
+    try {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      this.catalogView.style.display = 'none';
+      this.workspaceView.classList.add('active');
+      this.workspaceView.innerHTML = '';
+      tool.render(this.workspaceView);
+    } catch (err) {
+      console.error('Error rendering tool:', err);
+      this.showCatalog();
+    }
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => App.init());
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => App.init());
+} else {
+  App.init();
+}
+

@@ -245,8 +245,6 @@ export function extractPalette(img, colorCount = 6) {
   });
 }
 
-import { quantizeCanvas } from './quantize.js';
-
 /**
  * TinyPNG-Equivalent Smart Compression Engine
  */
