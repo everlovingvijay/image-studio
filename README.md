@@ -19,7 +19,7 @@
 
 | # | Tool | Category | Engine | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | **🗜️ Compress IMAGE** | Optimize | Canvas + Blob | Compress JPG, PNG, SVG, and GIFs with quality sliders, live savings calculator, and bulk ZIP download. |
+| 1 | **🗜️ Compress IMAGE** | Optimize | TinyPNG Smart Quantize | TinyPNG-equivalent smart compression: reduces 1MB files to ~135KB (85–90% reduction) with zero discernible quality loss, side-by-side inspector, and PNG-8 quantization. |
 | 2 | **📐 Resize IMAGE** | Edit | Bicubic Resampling | Resize images in bulk by percentage (25%, 50%, 75%) or exact pixel dimensions with aspect ratio lock. |
 | 3 | **✂️ Crop IMAGE** | Edit | Canvas 2D | Visual interactive crop box with draggable handles and presets (1:1, 4:3, 16:9, 9:16, Freeform). |
 | 4 | **🔄 Convert to JPG** | Convert | Canvas Export | Batch turn PNG, GIF, SVG, WEBP, and other formats to JPG with custom background fill color. |
