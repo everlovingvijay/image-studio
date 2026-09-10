@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniIMG — 100% Client-Side Bulk Image Tools</title>
+  <meta name="description" content="Every tool you could want to edit images in bulk. Compress, resize, crop, convert, remove background, upscale, watermark, and meme generator. 100% private in-browser editing.">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/catalog.css">
+  <link rel="stylesheet" href="css/workspace.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <a href="#/" class="brand">
+      <div class="brand-icon">
+        <i data-lucide="image" style="width: 20px; height: 20px;"></i>
+      </div>
+      <span>Omni<strong style="color: var(--accent-blue);">IMG</strong></span>
+      <span class="brand-badge">Client-Side</span>
+    </a>
+
+    <div class="nav-actions">
+      <div class="privacy-pill">
+        <i data-lucide="shield-check" style="width: 15px; height: 15px;"></i>
+        <span>Zero Uploads • 100% Private</span>
+      </div>
+
+      <button id="theme-toggle-btn" class="nav-btn" title="Toggle Dark/Light Mode">
+        <span id="theme-icon"><i data-lucide="moon" style="width: 17px; height: 17px;"></i></span>
+      </button>
+
+      <a href="https://github.com/everlovingvijay/image-studio" target="_blank" rel="noopener noreferrer" class="nav-btn" title="View Source on GitHub">
+        <i data-lucide="github" style="width: 17px; height: 17px;"></i>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Global Operation Progress Bar -->
+  <div id="global-progress-container" class="progress-bar-container">
+    <div id="global-progress-bar" class="progress-bar-fill"></div>
+  </div>
+
+  <main class="main-content">
+    <!-- Home Catalog View -->
+    <section id="catalog-view">
+      <div class="hero">
+        <h1>Every tool you could want to edit images in bulk</h1>
+        <p>Your online photo editor is here and forever free!</p>
+
+        <!-- Search & Category Filters -->
+        <div class="catalog-controls">
+          <div class="category-tabs">
+            <button class="cat-tab active" data-category="all">All</button>
+            <button class="cat-tab" data-category="optimize">Optimize</button>
+            <button class="cat-tab" data-category="create">Create</button>
+            <button class="cat-tab" data-category="edit">Edit</button>
+            <button class="cat-tab" data-category="convert">Convert</button>
+            <button class="cat-tab" data-category="security">Security</button>
+          </div>
+
+          <div class="search-box-wrapper">
+            <i data-lucide="search" style="width: 18px; height: 18px;"></i>
+            <input type="text" id="tool-search" class="search-input" placeholder="Search image tools (e.g. compress, crop, upscale, blur)...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools Grid (All 15 Tools matching reference design) -->
+      <div class="tools-grid" id="tools-grid-container">
+
+        <!-- 1. Compress IMAGE -->
+        <a href="#/compress" class="tool-card" data-category="optimize">
+          <div class="tool-icon-box icon-emerald">
+            <i data-lucide="minimize-2" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Compress IMAGE</h3>
+          <p>Compress JPG, PNG, SVG, and GIFs while saving space and maintaining quality.</p>
+        </a>
+
+        <!-- 2. Resize IMAGE -->
+        <a href="#/resize" class="tool-card" data-category="edit">
+          <div class="tool-icon-box icon-sky">
+            <i data-lucide="scaling" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Resize IMAGE</h3>
+          <p>Define your dimensions, by percent or pixel, and resize your JPG, PNG, SVG, and GIF images.</p>
+        </a>
+
+        <!-- 3. Crop IMAGE -->
+        <a href="#/crop" class="tool-card" data-category="edit">
+          <div class="tool-icon-box icon-cyan">
+            <i data-lucide="crop" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Crop IMAGE</h3>
+          <p>Crop JPG, PNG, or GIFs with ease; Choose pixels to define your rectangle or use our visual editor.</p>
+        </a>
+
+        <!-- 4. Convert to JPG -->
+        <a href="#/convert-to-jpg" class="tool-card" data-category="convert">
+          <div class="tool-icon-box icon-amber">
+            <i data-lucide="file-output" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Convert to JPG</h3>
+          <p>Turn PNG, GIF, TIF, PSD, SVG, WEBP, HEIC, or RAW format images to JPG in bulk with ease.</p>
+        </a>
+
+        <!-- 5. Convert from JPG -->
+        <a href="#/convert-from-jpg" class="tool-card" data-category="convert">
+          <div class="tool-icon-box icon-yellow">
+            <i data-lucide="file-input" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Convert from JPG</h3>
+          <p>Turn JPG images to PNG and GIF. Choose several JPGs to create an animated GIF in seconds!</p>
+        </a>
+
+        <!-- 6. Photo editor -->
+        <a href="#/photo-editor" class="tool-card" data-category="edit">
+          <div class="tool-icon-box icon-purple">
+            <i data-lucide="edit-3" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Photo editor</h3>
+          <p>Spice up your pictures with text, effects, frames or stickers. Simple editing tools for your image needs.</p>
+        </a>
+
+        <!-- 7. Upscale Image (New!) -->
+        <a href="#/upscale" class="tool-card" data-category="optimize">
+          <span class="tool-badge-new">New!</span>
+          <div class="tool-icon-box icon-emerald">
+            <i data-lucide="maximize" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Upscale Image</h3>
+          <p>Enlarge your images with high resolution. Easily increase the size of your JPG and PNG images while maintaining visual quality.</p>
+        </a>
+
+        <!-- 8. Remove background (New!) -->
+        <a href="#/remove-bg" class="tool-card" data-category="edit">
+          <span class="tool-badge-new">New!</span>
+          <div class="tool-icon-box icon-emerald">
+            <i data-lucide="eraser" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Remove background</h3>
+          <p>Quickly remove image backgrounds with high accuracy. Instantly detect objects and cut out backgrounds with ease.</p>
+        </a>
+
+        <!-- 9. Watermark IMAGE -->
+        <a href="#/watermark" class="tool-card" data-category="security">
+          <div class="tool-icon-box icon-blue">
+            <i data-lucide="stamp" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Watermark IMAGE</h3>
+          <p>Stamp an image or text over your images in seconds. Choose the typography, transparency and position.</p>
+        </a>
+
+        <!-- 10. Meme generator -->
+        <a href="#/meme-generator" class="tool-card" data-category="create">
+          <div class="tool-icon-box icon-rose">
+            <i data-lucide="smile" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Meme generator</h3>
+          <p>Create your memes online with ease. Caption meme images or upload your pictures to make custom memes.</p>
+        </a>
+
+        <!-- 11. Rotate IMAGE -->
+        <a href="#/rotate" class="tool-card" data-category="edit">
+          <div class="tool-icon-box icon-sky">
+            <i data-lucide="rotate-cw" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Rotate IMAGE</h3>
+          <p>Rotate many images JPG, PNG or GIF at same time. Choose to rotate only landscape or portrait images!</p>
+        </a>
+
+        <!-- 12. HTML to IMAGE -->
+        <a href="#/html-to-image" class="tool-card" data-category="create">
+          <div class="tool-icon-box icon-yellow">
+            <i data-lucide="code-2" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>HTML to IMAGE</h3>
+          <p>Convert webpages or styled HTML snippets to JPG, PNG or SVG with retina quality in a click.</p>
+        </a>
+
+        <!-- 13. Blur face (New!) -->
+        <a href="#/blur-face" class="tool-card" data-category="security">
+          <span class="tool-badge-new">New!</span>
+          <div class="tool-icon-box icon-indigo">
+            <i data-lucide="shield-alert" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Blur face</h3>
+          <p>Easily blur out faces in photos. You can also blur licence plates and other objects to hide private information.</p>
+        </a>
+
+        <!-- 14. Color Palette -->
+        <a href="#/color-palette" class="tool-card" data-category="create">
+          <div class="tool-icon-box icon-rose">
+            <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Color Palette</h3>
+          <p>Extract dominant color schemes, HEX/RGB codes, and color swatches from any image with 1-click copy.</p>
+        </a>
+
+        <!-- 15. Strip Metadata (EXIF) -->
+        <a href="#/metadata-stripper" class="tool-card" data-category="security">
+          <div class="tool-icon-box icon-emerald">
+            <i data-lucide="shield-check" style="width: 24px; height: 24px;"></i>
+          </div>
+          <h3>Strip Metadata</h3>
+          <p>Clean photos of sensitive GPS geo-location, camera serials, and timestamps before sharing online.</p>
+        </a>
+
+      </div>
+
+      <div id="no-results-msg" class="no-results" style="display: none;">
+        <i data-lucide="search-x" style="width: 48px; height: 48px; margin-bottom: 0.75rem;"></i>
+        <h3>No tools found matching your search</h3>
+        <p>Try searching for "crop", "compress", "watermark", or switch category filter.</p>
+      </div>
+    </section>
+
+    <!-- Dynamic Workspace Container -->
+    <section id="workspace-view"></section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div style="font-weight: 700; font-size: 1.1rem;">Omni<span style="color: var(--accent-blue);">IMG</span></div>
+      <p style="font-size: 0.875rem; color: var(--text-secondary); max-width: 600px;">
+        100% Client-Side In-Browser Image Studio. All processing takes place on your local CPU/GPU using HTML5 Canvas. No photos or personal data are ever uploaded to any server.
+      </p>
+      <div class="footer-links">
+        <a href="#/compress">Compress</a>
+        <a href="#/resize">Resize</a>
+        <a href="#/crop">Crop</a>
+        <a href="#/convert-to-jpg">Convert</a>
+        <a href="#/upscale">Upscale</a>
+        <a href="#/remove-bg">Remove BG</a>
+        <a href="#/blur-face">Blur Face</a>
+      </div>
+      <div class="footer-copy">
+        Free and Open Source • Ready for GitHub Pages & Custom Domain Deployment
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vendor Scripts -->
+  <script src="lib/jszip.min.js"></script>
+  <script src="lib/lucide.min.js"></script>
+
+  <!-- Application Entry Point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

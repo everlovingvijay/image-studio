@@ -1,0 +1,254 @@
+/* ==========================================================================
+   OmniIMG — Tool Catalog & Grid (Matching Screenshot Design)
+   ========================================================================== */
+
+.main-content {
+  min-height: calc(100vh - var(--header-height) - 150px);
+}
+
+#catalog-view {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+/* Category Filter Tabs & Search Controls */
+.catalog-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.category-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cat-tab {
+  padding: 0.45rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cat-tab:hover {
+  color: var(--text-primary);
+}
+
+.cat-tab.active {
+  background-color: #1e293b;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+}
+
+[data-theme="dark"] .cat-tab.active {
+  background-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.search-box-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+}
+
+.search-box-wrapper i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.65rem;
+  font-size: 0.925rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px var(--accent-blue-bg);
+}
+
+/* ==========================================================================
+   Tools Grid
+   ========================================================================== */
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 1100px) {
+  .tools-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.tool-card {
+  position: relative;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .tool-card:hover {
+  border-color: #334155;
+}
+
+.tool-badge-new {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .tool-badge-new {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+/* Icon Box inside Card */
+.tool-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.15rem;
+  transition: transform 0.2s ease;
+}
+
+.tool-card:hover .tool-icon-box {
+  transform: scale(1.08);
+}
+
+/* Colored Icon Box Accents matching the reference screenshot */
+.icon-emerald {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+.icon-sky {
+  background-color: #f0f9ff;
+  color: #0284c7;
+}
+.icon-cyan {
+  background-color: #ecfeff;
+  color: #0891b2;
+}
+.icon-amber {
+  background-color: #fffbeb;
+  color: #f59e0b;
+}
+.icon-yellow {
+  background-color: #fefce8;
+  color: #ca8a04;
+}
+.icon-purple {
+  background-color: #faf5ff;
+  color: #9333ea;
+}
+.icon-rose {
+  background-color: #fff1f2;
+  color: #e11d48;
+}
+.icon-blue {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+.icon-indigo {
+  background-color: #eef2ff;
+  color: #4f46e5;
+}
+
+.tool-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.tool-card p {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* Empty search result state */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--text-muted);
+}
