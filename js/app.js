@@ -17,6 +17,7 @@ import { HtmlToImageTool } from './tools/html-to-image.js';
 import { BlurFaceTool } from './tools/blur-face.js';
 import { ColorPaletteTool } from './tools/color-palette.js';
 import { MetadataStripperTool } from './tools/metadata-stripper.js';
+import { BlurImageTool } from './tools/blur-image.js';
 
 const TOOLS = [
   CompressTool,
@@ -32,6 +33,7 @@ const TOOLS = [
   RotateTool,
   HtmlToImageTool,
   BlurFaceTool,
+  BlurImageTool,
   ColorPaletteTool,
   MetadataStripperTool
 ];

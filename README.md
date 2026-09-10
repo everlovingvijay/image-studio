@@ -15,7 +15,7 @@
 
 ---
 
-## 🛠️ All 15 Built-in Tools
+## 🛠️ All 16 Built-in Tools
 
 | # | Tool | Category | Engine | Description |
 | :--- | :--- | :--- | :--- | :--- |
@@ -32,8 +32,9 @@
 | 11 | **🔃 Rotate IMAGE** | Edit | Canvas Transform | Rotate 90° CW/CCW, 180°, flip horizontally/vertically, with selective landscape/portrait filters. |
 | 12 | **🌐 HTML to IMAGE** | Create | SVG ForeignObject | Render styled HTML/CSS snippets, quote cards, and badges into retina-quality PNG, JPG, or SVG images. |
 | 13 | **🕶️ Blur face & Privacy** *(New!)* | Security | Canvas Region Filter | Interactive drag-to-draw censor boxes over faces, license plates, and sensitive documents (Pixelate or Blur). |
-| 14 | **🎨 Color Palette** | Create | Pixel Quantization | Extract dominant color palettes and harmonies with one-click HEX/RGB copy and palette card export. |
-| 15 | **🛡️ Strip Metadata (EXIF)** | Security | Clean Canvas Buffer | Erase GPS coordinates, camera serials, timestamps, and device metadata before sharing photos online. |
+| 14 | **🖌️ Blur IMAGE** *(New!)* | Edit / Security | Canvas Mask Brush | Blur whole images or paint custom blur with an interactive brush, intensity presets, and background defocus. |
+| 15 | **🎨 Color Palette** | Create | Pixel Quantization | Extract dominant color palettes and harmonies with one-click HEX/RGB copy and palette card export. |
+| 16 | **🛡️ Strip Metadata (EXIF)** | Security | Clean Canvas Buffer | Erase GPS coordinates, camera serials, timestamps, and device metadata before sharing photos online. |
 
 ---
 
