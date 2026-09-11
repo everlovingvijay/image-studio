@@ -27,7 +27,7 @@
 | 6 | **🎨 Photo editor** | Edit | Canvas Interactive | Adjust filters; drag & reposition movable text, stickers, and custom image/icon overlays with scaling & rotation. |
 | 7 | **✨ Upscale Image** *(New!)* | Optimize | Bicubic + Sharpen | Enlarge images 2X or 4X with an unsharp masking convolution filter to preserve crisp edge definition. |
 | 8 | **🪄 Remove background** *(New!)* | Edit | Chroma Knockout | Smart magic wand / color keying background knockout with tolerance, edge feathering, and eyedropper. |
-| 9 | **💧 Watermark IMAGE** | Security | Canvas Overlay | Stamp text or logo watermarks in bulk with a 9-point anchor grid, rotation, opacity, and tile mode. |
+| 9 | **💧 Watermark IMAGE** | Security | Canvas Overlay + Drag | Stamp text or custom transparent logos in bulk; interactive direct canvas drag moving, 9-point grid, 12+ fonts, color presets, and repeat all over with custom X/Y spacing. |
 | 10 | **🎭 Meme generator** | Create | Typography + Overlays | Create memes with freely movable top/bottom text, additional captions, scaling controls, and custom sticker uploads. |
 | 11 | **🔃 Rotate IMAGE** | Edit | Canvas Transform | Rotate 90° CW/CCW, 180°, flip horizontally/vertically, with selective landscape/portrait filters. |
 | 12 | **🌐 HTML to IMAGE** | Create | SVG ForeignObject | Render styled HTML/CSS snippets, quote cards, and badges into retina-quality PNG, JPG, or SVG images. |
