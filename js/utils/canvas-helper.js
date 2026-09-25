@@ -145,7 +145,7 @@ export function removeBackgroundByColor(canvas, targetR, targetG, targetB, toler
 /**
  * Censor / Blur Region (Gaussian Blur or Pixelate Mosaic)
  */
-export function censorRegion(ctx, x, y, width, height, mode = 'pixelate', intensity = 15) {
+export function censorRegion(ctx, x, y, width, height, mode = 'pixelate', intensity = 16) {
   if (width <= 0 || height <= 0) return;
   const rx = Math.round(Math.max(0, x));
   const ry = Math.round(Math.max(0, y));
@@ -153,8 +153,10 @@ export function censorRegion(ctx, x, y, width, height, mode = 'pixelate', intens
   const rh = Math.round(Math.min(height, ctx.canvas.height - ry));
   if (rw <= 0 || rh <= 0) return;
 
+  const relScale = Math.max(1, ctx.canvas.width / 800);
+
   if (mode === 'pixelate') {
-    const blockSize = Math.max(4, Math.round(intensity));
+    const blockSize = Math.max(6, Math.round(intensity * relScale * 0.8));
     const regionData = ctx.getImageData(rx, ry, rw, rh);
     const data = regionData.data;
 
@@ -174,74 +176,126 @@ export function censorRegion(ctx, x, y, width, height, mode = 'pixelate', intens
           }
         }
 
-        r = Math.round(r / count);
-        g = Math.round(g / count);
-        b = Math.round(b / count);
+        if (count > 0) {
+          r = Math.round(r / count);
+          g = Math.round(g / count);
+          b = Math.round(b / count);
 
-        for (let sy = py; sy < limitY; sy++) {
-          for (let sx = px; sx < limitX; sx++) {
-            const idx = (sy * rw + sx) * 4;
-            data[idx] = r;
-            data[idx + 1] = g;
-            data[idx + 2] = b;
+          for (let sy = py; sy < limitY; sy++) {
+            for (let sx = px; sx < limitX; sx++) {
+              const idx = (sy * rw + sx) * 4;
+              data[idx] = r;
+              data[idx + 1] = g;
+              data[idx + 2] = b;
+            }
           }
         }
       }
     }
     ctx.putImageData(regionData, rx, ry);
   } else {
-    // Gaussian-like blur by scaling down and back up
-    const smallCanvas = document.createElement('canvas');
-    const scale = Math.max(0.04, 1 / (intensity * 0.5));
-    smallCanvas.width = Math.max(1, Math.round(rw * scale));
-    smallCanvas.height = Math.max(1, Math.round(rh * scale));
-    const sCtx = smallCanvas.getContext('2d');
-    sCtx.imageSmoothingEnabled = true;
-    sCtx.imageSmoothingQuality = 'high';
-    sCtx.drawImage(ctx.canvas, rx, ry, rw, rh, 0, 0, smallCanvas.width, smallCanvas.height);
-
+    // Gaussian Blur
     ctx.save();
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(smallCanvas, 0, 0, smallCanvas.width, smallCanvas.height, rx, ry, rw, rh);
+    ctx.beginPath();
+    ctx.rect(rx, ry, rw, rh);
+    ctx.clip();
+
+    const blurPx = Math.max(6, Math.round(intensity * relScale * 1.5));
+    if (typeof ctx.filter === 'string') {
+      ctx.filter = `blur(${blurPx}px)`;
+      ctx.drawImage(ctx.canvas, 0, 0);
+    } else {
+      const smallCanvas = document.createElement('canvas');
+      const scale = Math.max(0.02, 1 / (blurPx * 0.5));
+      smallCanvas.width = Math.max(1, Math.round(rw * scale));
+      smallCanvas.height = Math.max(1, Math.round(rh * scale));
+      const sCtx = smallCanvas.getContext('2d');
+      sCtx.imageSmoothingEnabled = true;
+      sCtx.drawImage(ctx.canvas, rx, ry, rw, rh, 0, 0, smallCanvas.width, smallCanvas.height);
+      ctx.drawImage(smallCanvas, 0, 0, smallCanvas.width, smallCanvas.height, rx, ry, rw, rh);
+    }
     ctx.restore();
   }
 }
 
 /**
- * Extract Dominant Colors from Canvas (Simple K-Means / Bucket sampling)
+ * Extract Dominant Colors from Canvas using Perceptual Color Distance Clustering
  */
 export function extractPalette(img, colorCount = 6) {
   const canvas = document.createElement('canvas');
-  const size = 120;
+  const size = 160;
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
   ctx.drawImage(img, 0, 0, size, size);
   const data = ctx.getImageData(0, 0, size, size).data;
 
-  const colorBuckets = {};
-  for (let i = 0; i < data.length; i += 16) {
-    if (data[i + 3] < 128) continue; // skip transparent
-    // Quantize to 5 bits per channel (step of 8)
-    const r = Math.round(data[i] / 16) * 16;
-    const g = Math.round(data[i + 1] / 16) * 16;
-    const b = Math.round(data[i + 2] / 16) * 16;
-    const key = `${r},${g},${b}`;
-    colorBuckets[key] = (colorBuckets[key] || 0) + 1;
+  // 1. Quantize and collect raw frequency buckets (5-bit color sampling)
+  const colorBuckets = new Map();
+  for (let i = 0; i < data.length; i += 8) {
+    if (data[i + 3] < 96) continue; // skip transparent
+    const r = (data[i] >> 3) << 3;
+    const g = (data[i + 1] >> 3) << 3;
+    const b = (data[i + 2] >> 3) << 3;
+    const key = (r << 16) | (g << 8) | b;
+    colorBuckets.set(key, (colorBuckets.get(key) || 0) + 1);
   }
 
-  const sorted = Object.entries(colorBuckets)
+  // 2. Sort by frequency
+  const sortedCandidates = Array.from(colorBuckets.entries())
     .sort((a, b) => b[1] - a[1])
-    .slice(0, colorCount);
+    .map(([key, count]) => ({
+      r: (key >> 16) & 255,
+      g: (key >> 8) & 255,
+      b: key & 255,
+      count
+    }));
 
-  return sorted.map(([rgbStr]) => {
-    const [r, g, b] = rgbStr.split(',').map(Number);
-    const hex = '#' + [r, g, b].map(x => {
+  if (sortedCandidates.length === 0) return [];
+
+  // Perceptual distance helper (Weighted Euclidean)
+  const colorDist = (c1, c2) => {
+    const dr = c1.r - c2.r;
+    const dg = c1.g - c2.g;
+    const db = c1.b - c2.b;
+    return Math.sqrt(dr * dr * 0.299 + dg * dg * 0.587 + db * db * 0.114);
+  };
+
+  // 3. Iterative clustering with adaptive distance thresholds to ensure distinct major colors
+  let chosen = [];
+  let thresholds = [45, 35, 25, 15];
+
+  for (const thresh of thresholds) {
+    for (const cand of sortedCandidates) {
+      if (chosen.length >= colorCount) break;
+      const isDistinct = chosen.every(c => colorDist(c, cand) >= thresh);
+      if (isDistinct) {
+        chosen.push(cand);
+      }
+    }
+    if (chosen.length >= colorCount) break;
+  }
+
+  // Fill up if still less than colorCount
+  for (const cand of sortedCandidates) {
+    if (chosen.length >= colorCount) break;
+    if (!chosen.includes(cand)) {
+      chosen.push(cand);
+    }
+  }
+
+  return chosen.map(c => {
+    const hex = '#' + [c.r, c.g, c.b].map(x => {
       const h = x.toString(16);
       return h.length === 1 ? '0' + h : h;
-    }).join('');
-    return { r, g, b, hex, rgb: `rgb(${r}, ${g}, ${b})` };
+    }).join('').toUpperCase();
+    return {
+      r: c.r,
+      g: c.g,
+      b: c.b,
+      hex,
+      rgb: `rgb(${c.r}, ${c.g}, ${c.b})`
+    };
   });
 }
 
